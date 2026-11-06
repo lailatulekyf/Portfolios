@@ -21,6 +21,13 @@
     if (e.key === 'Escape' && navWrap.classList.contains('open')) { setMenu(false); toggle.focus(); }
   });
   links.forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  // Tap outside the menu to close it; reset when the viewport grows to the desktop layout
+  document.addEventListener('click', function (e) {
+    if (navWrap.classList.contains('open') && !e.target.closest('.nav')) setMenu(false);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 1100 && navWrap.classList.contains('open')) setMenu(false);
+  });
 
   if ('IntersectionObserver' in window) {
     // Active section highlighting
